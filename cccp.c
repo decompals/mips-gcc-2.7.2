@@ -319,7 +319,11 @@ typedef struct { unsigned :16, :16, :16; } vms_ino_t;
 extern char *version_string;
 #ifndef VMS
 #ifndef HAVE_STRERROR
+#ifndef DARWIN
 extern int sys_nerr;
+#else
+extern const int sys_nerr;
+#endif
 #if defined(bsd4_4)
 extern const char *const sys_errlist[];
 #else
