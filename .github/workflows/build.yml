@@ -13,7 +13,13 @@ jobs:
               OS: 'ubuntu-latest',
               CFLAGS: '-static -std=gnu89 -m32 -fno-stack-protector -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0',
               HOST: 'i386-pc-linux',
-              ARCHIVE_NAME: 'gcc-2.7.2.tar.gz'
+              ARCHIVE_NAME: 'gcc-2.7.2-linux.tar.gz'
+            }
+          - {
+              OS: 'macos-latest',
+              CFLAGS: '-std=gnu89 -Wno-return-type -Wno-error -Wno-implicit-function-declaration -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0',
+              HOST: 'i386-apple-darwin',
+              ARCHIVE_NAME: 'gcc-2.7.2-mac.tar.gz'
             }
 
     name: Building binutils for ${{ matrix.TARGET.OS }}
