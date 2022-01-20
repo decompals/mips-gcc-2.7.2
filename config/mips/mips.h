@@ -408,7 +408,7 @@ extern char	       *mktemp ();
 /* Default target_flags if no switches are specified  */
 
 #ifndef TARGET_DEFAULT
-#define TARGET_DEFAULT 0
+#define TARGET_DEFAULT MASK_GAS
 #endif
 
 #ifndef TARGET_CPU_DEFAULT
