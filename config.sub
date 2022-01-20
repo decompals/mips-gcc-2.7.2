@@ -81,7 +81,7 @@ case $os in
 	-unicom* | -ibm* | -next | -hp | -isi* | -apollo | -altos* | \
 	-convergent* | -ncr* | -news | -32* | -3600* | -3100* | -hitachi* |\
 	-c[123]* | -convex* | -sun | -crds | -omron* | -dg | -ultra | -tti* | \
-	-harris | -dolphin | -highlevel | -gould | -cbm | -ns | -masscomp )
+	-harris | -dolphin | -highlevel | -gould | -cbm | -ns | -masscomp | -darwin* )
 		os=
 		basic_machine=$1
 		;;
