@@ -1,0 +1,58 @@
+name: Build
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ${{ matrix.TARGET.OS }}
+    strategy:
+      fail-fast: false
+      matrix:
+        TARGET:
+          - {
+              OS: 'ubuntu-latest',
+              CFLAGS: '-static -std=gnu89 -m32 -fno-stack-protector -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0',
+              HOST: 'i386-pc-linux',
+              ARCHIVE_NAME: 'gcc-2.7.2.tar.gz'
+            }
+
+    name: Building binutils for ${{ matrix.TARGET.OS }}
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies (Ubuntu)
+        shell: bash
+        if: matrix.TARGET.OS == 'ubuntu-latest'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential bison file gperf gcc gcc-multilib
+      - name: Configure for mips
+        shell: bash
+        run: |
+          ./configure --target=mips-mips-gnu --prefix=/opt/cross --with-gnu-as --disable-gprof --disable-gdb --disable-werror --host=${{ matrix.TARGET.HOST }} --build=${{ matrix.TARGET.HOST }}
+      - name: Make
+        shell: bash
+        run: |
+          make cpp cc1 xgcc cc1plus g++ CFLAGS="${{ matrix.TARGET.CFLAGS }}"
+      - name: Test for file
+        shell: bash
+        run: |
+          test -f cc1
+          file cc1
+      - name: Create release archive
+        shell: bash
+        run: |
+          cp xgcc gcc
+          tar -czf ${{ matrix.TARGET.ARCHIVE_NAME }} cpp cc1 gcc cc1plus g++
+      - name: Upload archive
+        uses: actions/upload-artifact@v2
+        with:
+          name: binutils-2.7-2-${{ matrix.TARGET.OS }}
+          path: |
+            ${{ matrix.TARGET.ARCHIVE_NAME }}
+      - name: Update release
+        uses: johnwbyrd/update-release@v1.0.0
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          files: ${{ matrix.TARGET.ARCHIVE_NAME }}
