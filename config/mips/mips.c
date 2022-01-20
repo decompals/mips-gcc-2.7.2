@@ -5424,10 +5424,10 @@ mips_select_rtx_section (mode, x)
       /* For hosted applications, always put constants in small data if
 	 possible, as this gives the best performance.  */
      
-      if (GET_MODE_SIZE (mode) <= mips_section_threshold
-	  && mips_section_threshold > 0)
-	SMALL_DATA_SECTION ();
-      else
+  //     if (GET_MODE_SIZE (mode) <= mips_section_threshold
+	//   && mips_section_threshold > 0)
+	// SMALL_DATA_SECTION ();
+  //     else
 	READONLY_DATA_SECTION ();
     }
 }
@@ -5467,8 +5467,8 @@ mips_select_section (decl, reloc)
 		   || !flag_writable_strings)))
 	  && ! (flag_pic && reloc))
 	READONLY_DATA_SECTION ();
-      else if (size > 0 && size <= mips_section_threshold)
-	SMALL_DATA_SECTION ();
+  //     else if (size > 0 && size <= mips_section_threshold)
+	// SMALL_DATA_SECTION ();
       else
 	data_section ();
     }
@@ -5477,9 +5477,9 @@ mips_select_section (decl, reloc)
       /* For hosted applications, always put an object in small data if
 	 possible, as this gives the best performance.  */
 
-      if (size > 0 && size <= mips_section_threshold)
+      /*if (size > 0 && size <= mips_section_threshold)
 	SMALL_DATA_SECTION ();
-      else if (((TREE_CODE (decl) == VAR_DECL
+      else*/ if (((TREE_CODE (decl) == VAR_DECL
 		 && TREE_READONLY (decl) && !TREE_SIDE_EFFECTS (decl)
 		 && DECL_INITIAL (decl)
 		 && (DECL_INITIAL (decl) == error_mark_node
