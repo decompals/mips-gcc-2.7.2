@@ -81,7 +81,7 @@ case $os in
 	-unicom* | -ibm* | -next | -hp | -isi* | -apollo | -altos* | \
 	-convergent* | -ncr* | -news | -32* | -3600* | -3100* | -hitachi* |\
 	-c[123]* | -convex* | -sun | -crds | -omron* | -dg | -ultra | -tti* | \
-	-harris | -dolphin | -highlevel | -gould | -cbm | -ns | -masscomp | -darwin* )
+	-harris | -dolphin | -highlevel | -gould | -cbm | -ns | -masscomp)
 		os=
 		basic_machine=$1
 		;;
@@ -641,7 +641,7 @@ case $os in
 	      | -hiux* | -386bsd* | -netbsd* | -freebsd* | -riscix* \
 	      | -lynxos* | -bosx* | -nextstep* | -cxux* | -aout* | -elf* \
 	      | -ptx* | -coff* | -ecoff* | -winnt* | -domain* | -vsta* \
-	      | -udi* | -eabi* | -lites* | -darwin* )
+	      | -udi* | -eabi* | -lites* | -darwin*)
 	# Remember, each alternative MUST END IN *, to match a version number.
 		;;
 	-sunos5*)
