@@ -769,7 +769,7 @@ while (0)
    NetBSD-ELF) need to override this. */
 
 #ifndef LOCAL_LABEL_PREFIX
-#define LOCAL_LABEL_PREFIX	"$"
+#define LOCAL_LABEL_PREFIX	"."
 #endif
 
 /* By default on the mips, external symbols do not have an underscore
