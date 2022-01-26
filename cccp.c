@@ -200,17 +200,21 @@ my_bzero (b, length)
 #endif
 
 #if defined (__STDC__) && defined (HAVE_VPRINTF)
+
 # include <stdarg.h>
 # define VA_START(va_list, var) va_start (va_list, var)
 # define PRINTF_ALIST(msg) char *msg, ...
 # define PRINTF_DCL(msg)
 # define PRINTF_PROTO(ARGS, m, n) PROTO (ARGS) __attribute__ ((format (printf, m, n)))
+
 #else
+
 #ifndef DARWIN
-# include <varargs.h>
+#include <varargs.h>
 #else
 #include <stdarg.h>
 #endif
+
 # define VA_START(va_list, var) va_start (va_list)
 # define PRINTF_ALIST(msg) msg, va_alist
 # define PRINTF_DCL(msg) char *msg; va_dcl
@@ -223,6 +227,7 @@ my_bzero (b, length)
       char *a3 = va_arg(args, char *); \
       fprintf (file, msg, a0, a1, a2, a3); \
     }
+
 #endif
 
 #define PRINTF_PROTO_1(ARGS) PRINTF_PROTO(ARGS, 1, 2)
