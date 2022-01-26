@@ -8980,7 +8980,7 @@ vwarning (msg, args)
 }
 
 static void
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
 error_with_line (int line, PRINTF_ALIST (msg))
 #else
 error_with_line (line, PRINTF_ALIST (msg))
@@ -9020,7 +9020,7 @@ verror_with_line (line, msg, args)
 }
 
 static void
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
 warning_with_line (int line, PRINTF_ALIST (msg))
 #else
 warning_with_line (line, PRINTF_ALIST (msg))
@@ -9082,7 +9082,7 @@ pedwarn (PRINTF_ALIST (msg))
 }
 
 void
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
 pedwarn_with_line (int line, PRINTF_ALIST (msg))
 #else
 pedwarn_with_line (line, PRINTF_ALIST (msg))
@@ -9104,7 +9104,7 @@ pedwarn_with_line (line, PRINTF_ALIST (msg))
    giving specified file name and line number, not current.  */
 
 static void
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
 pedwarn_with_file_and_line (char *file, int line, PRINTF_ALIST (msg))
 #else
 pedwarn_with_file_and_line (file, line, PRINTF_ALIST (msg))
