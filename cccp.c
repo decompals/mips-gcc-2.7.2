@@ -215,8 +215,6 @@ my_bzero (b, length)
 #include <stdarg.h>
 #endif
 
-TEST123
-
 # define VA_START(va_list, var) va_start (va_list)
 # define PRINTF_ALIST(msg) msg, va_alist
 # define PRINTF_DCL(msg) char *msg; va_dcl
