@@ -41,7 +41,7 @@ Boston, MA 02111-1307, USA.  */
 #endif
 
 /* #define NDEBUG 1 */
-#include "assert.h"
+//#include "assert.h"
 
 #if defined(DWARF_TIMESTAMPS)
 #if defined(POSIX)
