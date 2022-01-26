@@ -41,7 +41,7 @@ Boston, MA 02111-1307, USA.  */
 #endif
 
 /* #define NDEBUG 1 */
-#include "assert.h"
+//#include "assert.h"
 
 #if defined(DWARF_TIMESTAMPS)
 #if defined(POSIX)
@@ -2498,8 +2498,8 @@ bit_offset_attribute (decl)
   register unsigned highest_order_field_bit_offset;
   register unsigned bit_offset;
 
-  assert (TREE_CODE (decl) == FIELD_DECL);	/* Must be a field.  */
-  assert (type);				/* Must be a bit field.	 */
+  //assert (TREE_CODE (decl) == FIELD_DECL);	/* Must be a field.  */
+  //assert (type);				/* Must be a bit field.	 */
 
   /* We can't yet handle bit-fields whose offsets are variable, so if we
      encounter such things, just return without generating any attribute
@@ -2542,8 +2542,8 @@ inline void
 bit_size_attribute (decl)
     register tree decl;
 {
-  assert (TREE_CODE (decl) == FIELD_DECL);	/* Must be a field.  */
-  assert (DECL_BIT_FIELD_TYPE (decl));		/* Must be a bit field.	 */
+  //assert (TREE_CODE (decl) == FIELD_DECL);	/* Must be a field.  */
+  //assert (DECL_BIT_FIELD_TYPE (decl));		/* Must be a bit field.	 */
 
   ASM_OUTPUT_DWARF_ATTRIBUTE (asm_out_file, AT_bit_size);
   ASM_OUTPUT_DWARF_DATA4 (asm_out_file,
@@ -3076,7 +3076,7 @@ output_inlined_enumeration_type_die (arg)
 
   ASM_OUTPUT_DWARF_TAG (asm_out_file, TAG_enumeration_type);
   sibling_attribute ();
-  assert (TREE_ASM_WRITTEN (type));
+  //assert (TREE_ASM_WRITTEN (type));
   abstract_origin_attribute (type);
 }
 
@@ -3090,7 +3090,7 @@ output_inlined_structure_type_die (arg)
 
   ASM_OUTPUT_DWARF_TAG (asm_out_file, TAG_structure_type);
   sibling_attribute ();
-  assert (TREE_ASM_WRITTEN (type));
+  //assert (TREE_ASM_WRITTEN (type));
   abstract_origin_attribute (type);
 }
 
@@ -3104,7 +3104,7 @@ output_inlined_union_type_die (arg)
 
   ASM_OUTPUT_DWARF_TAG (asm_out_file, TAG_union_type);
   sibling_attribute ();
-  assert (TREE_ASM_WRITTEN (type));
+  //assert (TREE_ASM_WRITTEN (type));
   abstract_origin_attribute (type);
 }
 
@@ -4188,9 +4188,9 @@ output_tagged_type_instantiation (type)
      sure that we have the main variant (i.e. the unqualified version) of
      this type now.  */
 
-  assert (type == type_main_variant (type));
+  //assert (type == type_main_variant (type));
 
-  assert (TREE_ASM_WRITTEN (type));
+  //assert (TREE_ASM_WRITTEN (type));
 
   switch (TREE_CODE (type))
     {
@@ -4920,7 +4920,7 @@ dwarfout_file_scope_decl (decl, set_finalizing)
 
   /* The above call should have totally emptied the pending_types_list.  */
 
-  assert (pending_types == 0);
+  //assert (pending_types == 0);
 
   ASM_OUTPUT_POP_SECTION (asm_out_file);
 
