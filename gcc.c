@@ -175,12 +175,21 @@ extern char *getenv ();
 extern int errno;
 #endif
 
+#ifndef DARWIN
 extern int sys_nerr;
+#else
+extern const int sys_nerr;
+#endif
+
 #ifndef HAVE_STRERROR
 #if defined(bsd4_4)
 extern const char *const sys_errlist[];
 #else
+#ifndef DARWIN
 extern char *sys_errlist[];
+#else
+extern const char *const sys_errlist[];
+#endif
 #endif
 #else
 extern char *strerror();
