@@ -21,6 +21,8 @@ Boston, MA 02111-1307, USA.  */
 #ifndef REAL_H_INCLUDED
 #define REAL_H_INCLUDED
 
+#include <stdint.h>
+
 /* Define codes for all the float formats that we know of.  */
 #define UNKNOWN_FLOAT_FORMAT 0
 #define IEEE_FLOAT_FORMAT 1
@@ -418,7 +420,8 @@ REAL_VALUE_TYPE real_value_from_int_cst ();
 
 #define REAL_VALUE_FROM_CONST_DOUBLE(to, from)		\
 do { union real_extract u;				\
-     bcopy ((char *) &CONST_DOUBLE_LOW ((from)), (char *) &u, sizeof u); \
+     bcopy ((uint8_t *) &CONST_DOUBLE_LOW ((from)), (uint8_t *) &u, (sizeof u) / 2); \
+     bcopy ((uint8_t *) &CONST_DOUBLE_HIGH ((from)), ((uint8_t *) &u) + (sizeof u / 2), (sizeof u) / 2); \
      to = u.d; } while (0)
 
 /* Return a CONST_DOUBLE with value R and mode M.  */
