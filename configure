@@ -845,7 +845,13 @@ for machine in $canon_build $canon_host $canon_target; do
 		out_file=i370/mvs370.c
 		;;
 	i[34567]86-apple-darwin)	#macOS
-		xm_file=i386/xm-darwin.h
+		cpu_type=i386		# with ELF format
+		xm_file=i386/xm-linux.h
+		xmake_file=x-linux
+		tm_file=i386/linux.h
+		fixincludes=Makefile.in #On Linux, the headers are ok already.
+		broken_install=yes
+		gnu_ld=yes
 		;;
 	i[345]86-ibm-aix*)		# IBM PS/2 running AIX
 		cpu_type=i386
