@@ -11,7 +11,7 @@ jobs:
         TARGET:
           - {
               OS: 'ubuntu-latest',
-              CFLAGS: '-static -std=gnu89 -m32 -fno-stack-protector -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0',
+              CFLAGS: '-static -std=gnu89 -fno-stack-protector -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=0',
               HOST: 'i386-pc-linux',
               ARCHIVE_NAME: 'gcc-2.7.2-linux.tar.gz'
             }
