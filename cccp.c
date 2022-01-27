@@ -199,14 +199,18 @@ my_bzero (b, length)
 # endif
 #endif
 
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
+
 # include <stdarg.h>
 # define VA_START(va_list, var) va_start (va_list, var)
 # define PRINTF_ALIST(msg) char *msg, ...
 # define PRINTF_DCL(msg)
 # define PRINTF_PROTO(ARGS, m, n) PROTO (ARGS) __attribute__ ((format (printf, m, n)))
-#else
-# include <varargs.h>
+
+#else // 1
+
+#include <varargs.h>
+
 # define VA_START(va_list, var) va_start (va_list)
 # define PRINTF_ALIST(msg) msg, va_alist
 # define PRINTF_DCL(msg) char *msg; va_dcl
@@ -219,7 +223,8 @@ my_bzero (b, length)
       char *a3 = va_arg(args, char *); \
       fprintf (file, msg, a0, a1, a2, a3); \
     }
-#endif
+
+#endif // 1
 
 #define PRINTF_PROTO_1(ARGS) PRINTF_PROTO(ARGS, 1, 2)
 #define PRINTF_PROTO_2(ARGS) PRINTF_PROTO(ARGS, 2, 3)
@@ -315,11 +320,19 @@ typedef struct { unsigned :16, :16, :16; } vms_ino_t;
 extern char *version_string;
 #ifndef VMS
 #ifndef HAVE_STRERROR
+#ifndef DARWIN
 extern int sys_nerr;
+#else
+extern const int sys_nerr;
+#endif
 #if defined(bsd4_4)
 extern const char *const sys_errlist[];
 #else
+#ifndef DARWIN
 extern char *sys_errlist[];
+#else
+extern const char* const sys_errlist[];
+#endif
 #endif
 #else	/* HAVE_STRERROR */
 char *strerror ();
@@ -8967,7 +8980,7 @@ vwarning (msg, args)
 }
 
 static void
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
 error_with_line (int line, PRINTF_ALIST (msg))
 #else
 error_with_line (line, PRINTF_ALIST (msg))
@@ -9007,7 +9020,7 @@ verror_with_line (line, msg, args)
 }
 
 static void
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
 warning_with_line (int line, PRINTF_ALIST (msg))
 #else
 warning_with_line (line, PRINTF_ALIST (msg))
@@ -9069,7 +9082,7 @@ pedwarn (PRINTF_ALIST (msg))
 }
 
 void
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
 pedwarn_with_line (int line, PRINTF_ALIST (msg))
 #else
 pedwarn_with_line (line, PRINTF_ALIST (msg))
@@ -9091,7 +9104,7 @@ pedwarn_with_line (line, PRINTF_ALIST (msg))
    giving specified file name and line number, not current.  */
 
 static void
-#if defined (__STDC__) && defined (HAVE_VPRINTF)
+#if 1
 pedwarn_with_file_and_line (char *file, int line, PRINTF_ALIST (msg))
 #else
 pedwarn_with_file_and_line (file, line, PRINTF_ALIST (msg))

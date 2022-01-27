@@ -844,6 +844,9 @@ for machine in $canon_build $canon_host $canon_target; do
 		xm_file=i370/xm-mvs.h
 		out_file=i370/mvs370.c
 		;;
+	i[34567]86-apple-darwin)	#macOS
+		xm_file=i386/xm-darwin.h
+		;;
 	i[345]86-ibm-aix*)		# IBM PS/2 running AIX
 		cpu_type=i386
                 if [ x$gas = xyes ]
