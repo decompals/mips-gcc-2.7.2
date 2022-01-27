@@ -17,7 +17,7 @@ jobs:
             }
           - {
               OS: 'macos-latest',
-              CFLAGS: '-DDARWIN -std=gnu89 -Wno-return-type -Wno-error -Wno-implicit-function-declaration',
+              CFLAGS: '-DDARWIN -mx32 -std=gnu89 -Wno-return-type -Wno-error -Wno-implicit-function-declaration',
               HOST: 'i386-apple-darwin',
               ARCHIVE_NAME: 'gcc-2.7.2-mac.tar.gz'
             }
