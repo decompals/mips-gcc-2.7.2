@@ -45,6 +45,7 @@ jobs:
         run: |
           test -f cc1
           file cc1
+          ./cc1 test.c
       - name: Create release archive
         shell: bash
         run: |
