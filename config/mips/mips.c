@@ -195,6 +195,7 @@ int mips_isa;
 /* Strings to hold which cpu and instruction set architecture to use.  */
 char *mips_cpu_string;		/* for -mcpu=<xxx> */
 char *mips_isa_string;		/* for -mips{1,2,3,4} */
+char *mips_abi_string;		/* for -mabi=<xxx> */
 
 /* Generating calls to position independent functions?  */
 enum mips_abicalls_type mips_abicalls;

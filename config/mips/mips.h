@@ -119,6 +119,7 @@ extern enum mips_abicalls_type mips_abicalls;/* for svr4 abi pic calls */
 extern int mips_isa;			/* architectural level */
 extern char *mips_cpu_string;		/* for -mcpu=<xxx> */
 extern char *mips_isa_string;		/* for -mips{1,2,3,4} */
+extern char *mips_abi_string;		/* for -mabi=<xxx> */
 extern int dslots_load_total;		/* total # load related delay slots */
 extern int dslots_load_filled;		/* # filled load delay slots */
 extern int dslots_jump_total;		/* total # jump related delay slots */
@@ -451,7 +452,8 @@ extern char	       *mktemp ();
 #define TARGET_OPTIONS							\
 {									\
   { "cpu=",	&mips_cpu_string	},				\
-  { "ips",	&mips_isa_string	}				\
+  { "ips",	&mips_isa_string	},				\
+  { "abi=",	&mips_abi_string	}				\
 }
 
 /* Macros to decide whether certain features are available or not,
