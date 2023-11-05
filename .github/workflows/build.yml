@@ -24,7 +24,7 @@ jobs:
 
     name: Building binutils for ${{ matrix.TARGET.OS }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install dependencies (Ubuntu)
         shell: bash
@@ -53,7 +53,7 @@ jobs:
           cp xgcc gcc
           tar -czf ${{ matrix.TARGET.ARCHIVE_NAME }} cpp cc1 gcc cc1plus g++
       - name: Upload archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: binutils-2.7.2-${{ matrix.TARGET.OS }}
           path: |
