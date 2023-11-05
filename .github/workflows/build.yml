@@ -22,7 +22,7 @@ jobs:
               ARCHIVE_NAME: 'gcc-2.7.2-mac.tar.gz'
             }
 
-    name: Building binutils for ${{ matrix.TARGET.OS }}
+    name: Building gcc for ${{ matrix.TARGET.OS }}
     steps:
       - uses: actions/checkout@v4
 
