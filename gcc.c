@@ -4731,26 +4731,14 @@ static void
 pfatal_with_name (name)
      char *name;
 {
-  char *s;
-
-  if (errno < sys_nerr)
-    s = concat ("%s: ", my_strerror( errno ));
-  else
-    s = "cannot open `%s'";
-  fatal (s, name);
+  fatal ("%s: %s", name, my_strerror (errno));
 }
 
 static void
 perror_with_name (name)
      char *name;
 {
-  char *s;
-
-  if (errno < sys_nerr)
-    s = concat ("%s: ", my_strerror( errno ));
-  else
-    s = "cannot open `%s'";
-  error (s, name);
+  error ("%s: %s", name, my_strerror (errno));
 }
 
 static void
@@ -4759,11 +4747,7 @@ perror_exec (name)
 {
   char *s;
 
-  if (errno < sys_nerr)
-    s = concat ("installation problem, cannot exec `%s': ",
-		my_strerror (errno));
-  else
-    s = "installation problem, cannot exec `%s'";
+  s = concat ("installation problem, cannot exec `%s': ", my_strerror (errno));
   error (s, name);
 }
 
