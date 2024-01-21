@@ -1,6 +1,6 @@
 name: Build
 
-on: [push]
+on: [push, pull_request]
 
 jobs:
   build:
@@ -22,44 +22,50 @@ jobs:
               ARCHIVE_NAME: 'gcc-2.7.2-mac.tar.gz'
             }
 
-    name: Building binutils for ${{ matrix.TARGET.OS }}
+    name: Building gcc for ${{ matrix.TARGET.OS }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Install dependencies (Ubuntu)
         shell: bash
         if: matrix.TARGET.OS == 'ubuntu-latest'
         run: |
           sudo apt-get update
-          sudo apt-get install -y build-essential bison file gperf gcc gcc-multilib
+          sudo apt-get install -y build-essential bison file gperf gcc gcc-multilib autoconf
+
       - name: Configure for mips
         shell: bash
         run: |
           ./configure --target=mips-mips-gnu --prefix=/opt/cross --with-gnu-as --disable-gprof --disable-gdb --disable-werror --host=${{ matrix.TARGET.HOST }} --build=${{ matrix.TARGET.HOST }}
+
       - name: Make
-        shell: bash
+        shell: bash # The generated `c-parse.c` is already commited on the repo, so we touch it to avoid regenerating it (trying to build old lex/yacc files with modern tools fails)
         run: |
-          make cpp cc1 xgcc cc1plus g++ CFLAGS="${{ matrix.TARGET.CFLAGS }}"
+          touch c-parse.c
+          make CFLAGS="${{ matrix.TARGET.CFLAGS }}" xgcc cc1 cc1plus cpp cccp g++
+
       - name: Test for file
         shell: bash
         run: |
           test -f cc1
           file cc1
           ./cc1 test.c
+
       - name: Create release archive
         shell: bash
         run: |
           cp xgcc gcc
-          tar -czf ${{ matrix.TARGET.ARCHIVE_NAME }} cpp cc1 gcc cc1plus g++
+          tar -czf ${{ matrix.TARGET.ARCHIVE_NAME }} gcc cc1 cc1plus cpp cccp g++
+
       - name: Upload archive
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
-          name: binutils-2.7.2-${{ matrix.TARGET.OS }}
+          name: gcc-2.7.2-${{ matrix.TARGET.OS }}
           path: |
             ${{ matrix.TARGET.ARCHIVE_NAME }}
-      - name: Update release
-        uses: johnwbyrd/update-release@v1.0.0
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+
+      - name: Publish release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           files: ${{ matrix.TARGET.ARCHIVE_NAME }}
