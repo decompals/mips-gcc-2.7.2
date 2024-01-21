@@ -1020,28 +1020,6 @@ translate_options (argcp, argvp)
   *argcp = newindex;
 }
 
-char *
-my_strerror(e)
-     int e;
-{
-
-#ifdef HAVE_STRERROR
-  return strerror(e);
-
-#else
-
-  static char buffer[30];
-  if (!e)
-    return "";
-
-  if (e > 0 && e < sys_nerr)
-    return sys_errlist[e];
-
-  sprintf (buffer, "Unknown error %d", e);
-  return buffer;
-#endif
-}
-
 /* Read compilation specs from a file named FILENAME,
    replacing the default ones.
 
@@ -4731,14 +4709,14 @@ static void
 pfatal_with_name (name)
      char *name;
 {
-  fatal ("%s: %s", name, my_strerror (errno));
+  fatal ("%s: %s", name, strerror (errno));
 }
 
 static void
 perror_with_name (name)
      char *name;
 {
-  error ("%s: %s", name, my_strerror (errno));
+  error ("%s: %s", name, strerror (errno));
 }
 
 static void
@@ -4747,7 +4725,7 @@ perror_exec (name)
 {
   char *s;
 
-  s = concat ("installation problem, cannot exec `%s': ", my_strerror (errno));
+  s = concat ("installation problem, cannot exec `%s': ", strerror (errno));
   error (s, name);
 }
 
