@@ -11,7 +11,7 @@ jobs:
         TARGET:
           - {
               OS: 'ubuntu-latest',
-              CFLAGS: '-static -std=gnu89 -m32',
+              CFLAGS: '-static -std=gnu89 -m32 -D_FILE_OFFSET_BITS=64',
               HOST: 'i386-pc-linux',
               ARCHIVE_NAME: 'gcc-2.7.2-linux.tar.gz'
             }
