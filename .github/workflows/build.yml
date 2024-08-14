@@ -16,10 +16,16 @@ jobs:
               ARCHIVE_NAME: 'gcc-2.7.2-linux.tar.gz'
             }
           - {
-              OS: 'macos-latest',
-              CFLAGS: '-DDARWIN -std=gnu89 -Wno-return-type -Wno-error -Wno-implicit-function-declaration',
+              OS: 'macos-13',
+              CFLAGS: '-DDARWIN -std=gnu89 -Wno-return-type -Wno-error -Wno-implicit-function-declaration -Wno-int-conversion',
               HOST: 'i386-apple-darwin',
               ARCHIVE_NAME: 'gcc-2.7.2-mac.tar.gz'
+            }
+          - {
+              OS: 'macos-latest',
+              CFLAGS: '-DDARWIN -std=gnu89 -Wno-return-type -Wno-error -Wno-implicit-function-declaration -Wno-int-conversion',
+              HOST: 'arm-apple-darwin',
+              ARCHIVE_NAME: 'gcc-2.7.2-mac-arm.tar.gz'  
             }
 
     name: Building gcc for ${{ matrix.TARGET.OS }}
