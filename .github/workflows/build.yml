@@ -11,26 +11,27 @@ jobs:
         TARGET:
           - {
               OS: 'ubuntu-latest',
-              CFLAGS: '-static -std=gnu89 -m32',
+              CFLAGS: '-static -std=gnu89 -w -m32',
               HOST: 'i386-pc-linux',
               ARCHIVE_NAME: 'gcc-2.7.2-linux.tar.gz'
             }
           - {
-              OS: 'macos-13',
-              CFLAGS: '-DDARWIN -std=gnu89 -Wno-return-type -Wno-error -Wno-implicit-function-declaration -Wno-int-conversion',
+              OS: 'macos-15-intel',
+              CFLAGS: '-DDARWIN -std=gnu89 -w -Wno-return-type -Wno-error -Wno-implicit-function-declaration -Wno-int-conversion',
               HOST: 'i386-apple-darwin',
               ARCHIVE_NAME: 'gcc-2.7.2-mac.tar.gz'
             }
           - {
               OS: 'macos-14',
-              CFLAGS: '-DDARWIN -std=gnu89 -Wno-return-type -Wno-error -Wno-implicit-function-declaration -Wno-int-conversion',
+              CFLAGS: '-DDARWIN -std=gnu89 -w -Wno-return-type -Wno-error -Wno-implicit-function-declaration -Wno-int-conversion',
               HOST: 'arm-apple-darwin',
-              ARCHIVE_NAME: 'gcc-2.7.2-mac-arm.tar.gz'  
+              ARCHIVE_NAME: 'gcc-2.7.2-mac-arm.tar.gz'
             }
 
-    name: Building gcc for ${{ matrix.TARGET.OS }}
+    name: Building gcc for '${{ matrix.TARGET.HOST }}'
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@main
 
       - name: Install dependencies (Ubuntu)
         shell: bash
@@ -45,9 +46,10 @@ jobs:
           ./configure --target=mips-mips-gnu --prefix=/opt/cross --with-gnu-as --disable-gprof --disable-gdb --disable-werror --host=${{ matrix.TARGET.HOST }} --build=${{ matrix.TARGET.HOST }}
 
       - name: Make
-        shell: bash # The generated `c-parse.c` is already commited on the repo, so we touch it to avoid regenerating it (trying to build old lex/yacc files with modern tools fails)
+        shell: bash # The generated `c-parse.c` and `parse.c` are already commited on the repo, so we touch them to avoid regenerating it (trying to build old lex/yacc files with modern tools fails)
         run: |
           touch c-parse.c
+          touch cp/parse.c
           make CFLAGS="${{ matrix.TARGET.CFLAGS }}" xgcc cc1 cc1plus cpp cccp g++
 
       - name: Test for file
@@ -64,9 +66,9 @@ jobs:
           tar -czf ${{ matrix.TARGET.ARCHIVE_NAME }} gcc cc1 cc1plus cpp cccp g++
 
       - name: Upload archive
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@main
         with:
-          name: gcc-2.7.2-${{ matrix.TARGET.OS }}
+          name: gcc-2.7.2-${{ matrix.TARGET.HOST }}
           path: |
             ${{ matrix.TARGET.ARCHIVE_NAME }}
 
