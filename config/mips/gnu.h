@@ -107,7 +107,7 @@ Boston, MA 02111-1307, USA.  */
 	%{pipe: %e-pipe is not supported.} \
 	%{K}} \
 %{!mmips-as: \
-	%{mcpu=*}} \
+	%{mcpu=*} %{mdebug} %{mno-debug}} \
 %{G*} %{EB} %{EL} %{mips1} %{mips2} %{mips3} %{v} \
 %{noasmopt:-O0} \
 %{!noasmopt:%{O:-O2} %{O1:-O2} %{O2:-O2} %{O3:-O3}} \

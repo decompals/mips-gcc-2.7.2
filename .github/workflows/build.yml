@@ -11,7 +11,7 @@ jobs:
         TARGET:
           - {
               OS: 'ubuntu-latest',
-              CFLAGS: '-static -std=gnu89 -m32',
+              CFLAGS: '-static -std=gnu89 -m32 -D_FILE_OFFSET_BITS=64',
               HOST: 'i386-pc-linux',
               ARCHIVE_NAME: 'gcc-2.7.2-linux.tar.gz'
             }
@@ -47,7 +47,7 @@ jobs:
       - name: Make
         shell: bash # The generated `c-parse.c` is already commited on the repo, so we touch it to avoid regenerating it (trying to build old lex/yacc files with modern tools fails)
         run: |
-          touch c-parse.c
+          touch c-parse.c cp/parse.c cexp.c
           make CFLAGS="${{ matrix.TARGET.CFLAGS }}" xgcc cc1 cc1plus cpp cccp g++
 
       - name: Test for file
