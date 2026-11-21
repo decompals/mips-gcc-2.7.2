@@ -391,6 +391,7 @@ extern char	       *mktemp ();
   {"no-mad",		 -MASK_MAD},					\
   {"4650",		  MASK_MAD | MASK_SINGLE_FLOAT},		\
   {"debug",		  MASK_DEBUG},					\
+  {"no-debug",		 -MASK_DEBUG},				\
   {"debuga",		  MASK_DEBUG_A},				\
   {"debugb",		  MASK_DEBUG_B},				\
   {"debugc",		  MASK_DEBUG_C},				\

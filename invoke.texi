@@ -3551,6 +3551,11 @@ The @samp{-mmemcpy} switch makes all block moves call the appropriate
 string function (@samp{memcpy} or @samp{bcopy}) instead of possibly
 generating inline code.
 
+@item -mdebug
+@itemx -mno-debug
+Enable or disable ECOFF @samp{.mdebug} output from GNU as.
+Default is @samp{-mno-debug}.
+
 @item -mmips-tfile
 @itemx -mno-mips-tfile
 The @samp{-mno-mips-tfile} switch causes the compiler not
