@@ -10,19 +10,19 @@ jobs:
       matrix:
         TARGET:
           - {
-              OS: 'ubuntu-latest',
+              OS: 'ubuntu-24.04',
               CFLAGS: '-static -std=gnu89 -w -m32',
               HOST: 'i386-pc-linux',
               ARCHIVE_NAME: 'gcc-2.7.2-linux.tar.gz'
             }
           - {
-              OS: 'macos-15-intel',
+              OS: 'macos-26-intel',
               CFLAGS: '-DDARWIN -std=gnu89 -w -Wno-return-type -Wno-error -Wno-implicit-function-declaration -Wno-int-conversion',
               HOST: 'i386-apple-darwin',
               ARCHIVE_NAME: 'gcc-2.7.2-mac.tar.gz'
             }
           - {
-              OS: 'macos-14',
+              OS: 'macos-26',
               CFLAGS: '-DDARWIN -std=gnu89 -w -Wno-return-type -Wno-error -Wno-implicit-function-declaration -Wno-int-conversion',
               HOST: 'arm-apple-darwin',
               ARCHIVE_NAME: 'gcc-2.7.2-mac-arm.tar.gz'
@@ -35,7 +35,7 @@ jobs:
 
       - name: Install dependencies (Ubuntu)
         shell: bash
-        if: matrix.TARGET.OS == 'ubuntu-latest'
+        if: matrix.TARGET.OS == 'ubuntu-24.04'
         run: |
           sudo apt-get update
           sudo apt-get install -y build-essential bison file gperf gcc gcc-multilib autoconf
